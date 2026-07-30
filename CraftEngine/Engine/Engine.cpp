@@ -80,7 +80,7 @@ namespace Craft
 				SavePreviousInputStates();
 
 				// 현재 시간을 이전 시간으로 저장
-				previous - deltaTime;
+				previous = current;
 			}
 
 			
