@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="CraftEngine/CraftEngine.vcxproj" Id="8fbe75bf-ec6d-4eed-ba7a-875aa6d68e74">
+    <BuildType Project="Debug" />
+  </Project>
+</Solution>
