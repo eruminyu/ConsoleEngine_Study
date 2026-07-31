@@ -13,7 +13,7 @@ namespace Craft
 	void Level::OnInitialized()
 	{
 		// 초기화 완료 설정
-		hasInintialized = true;
+		hasInitialized = true;
 	}
 	void Level::BeginPlay()
 	{

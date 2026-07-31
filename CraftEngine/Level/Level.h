@@ -31,7 +31,7 @@ namespace Craft
 		template<typename T, typename ...Args,
 			typename = std::enable_if_t<std::is_base_of<Actor, T>::value>>
 			std::shared_ptr<T> SpawnActor(Args&& ...args) // 아직 안배운 부분
-			// SFAINE 라는 기법
+			// SFINAE 라는 기법
 		{
 			std::shared_ptr<T> newActor
 				= std::make_shared<T>(std::forward<Args>(args)...);
@@ -40,7 +40,7 @@ namespace Craft
 			addRequestedActorList.emplace_back(newActor);
 
 			// 오너십 설정
-			newActor->SetOwner(weak_form_this());
+			newActor->SetOwner(weak_from_this());
 
 			// 생성한 액터 반환
 			return newActor;
@@ -73,7 +73,7 @@ namespace Craft
 		
 
 		// Getter
-		inline bool	HasInitialized() const { return hasInintialized; }
+		inline bool	HasInitialized() const { return hasInitialized; }
 
 	protected:
 		// 이전 프레임에 추가/제거 요청된 액터 처리용 함수.
@@ -81,18 +81,20 @@ namespace Craft
 
 	protected:
 		// 초기화 처리 여부 플래그
-		bool hasInintialized = false;
+		bool hasInitialized = false;
 
+	protected:
+		// 레벨에 배치된 모든 액터
+		std::vector<std::shared_ptr<Actor>> actorList;
+		// 액터 리스트를 처리하는 과정에서 추가 생성이나 삭제를 하게 되면 문제가 생길 가능성이 많음.
+
+		// 레벨에 추가 요청된 액터를 저장해두는 목록
+		// 현재 프레임을 처리하는 과정에서 액터 추가 요청이 발생하면,
+		// 해당 액터를 바로 추가하는 경우 기존 액터 처리에 문제가 발생할 수 있기에
+		// 현재 프레임을 모두 처리한 후에 추가 요청된 액터를 actorList로 옮김.
+		std::vector<std::shared_ptr<Actor>> addRequestedActorList;
 
 	};
-	// 레벨에 배치된 모든 액터
-	std::vector<std::shared_ptr<Actor>> actorList;
-	// 액터 리스트를 처리하는 과정에서 추가 생성이나 삭제를 하게 되면 문제가 생길 가능성이 많음.
 	
-	// 레벨에 추가 요청된 액터를 저장해두는 목록
-	// 현재 프레임을 처리하는 과정에서 액터 추가 요청이 발생하면,
-	// 해당 액터를 바로 추가하는 경우 기존 액터 처리에 문제가 발생할 수 있기에
-	// 현재 프레임을 모두 처리한 후에 추가 요청된 액터를 actorList로 옮김.
-	std::vector<std::shared_ptr<Actor>> addRequestedActorList;
 }
 

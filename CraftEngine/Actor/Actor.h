@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 #include <memory>		// std::weak_ptr 사용을 위해
