@@ -3,15 +3,30 @@
 #include <Windows.h>
 //#include <chrono>
 // 언리얼에서는 chrono를 사용하지 않음.
+#include <cassert>
+//#include "assert.h"
 
 
 namespace Craft
 {
+	// 전역 변수 초기화
+	Engine* Engine::instance = nullptr;
+
+
 	Engine::Engine()
 	{
+
+
+
+		//instance 초기화
+		assert(!instance && "instance is not null");
+		instance = this;
+
+
 	}
 	Engine::~Engine()
 	{
+		instance = nullptr;
 	}
 	void Engine::Run()
 	{
@@ -94,6 +109,14 @@ namespace Craft
 	{
 		// 엔진 종료 플래그
 		isQuit = true;
+	}
+	Engine& Engine::Get()
+	{
+		// 검증 - assert 사용 (어써트)
+		// 필수로, 무조건 통화해야 하는 조건이 있을 때 사용
+		// 디버그 모드에서만 동작, 릴리즈에서는 사용되지 않음.
+		assert(instance && "instance is null");
+		return *instance;
 	}
 	void Engine::ProcessInput()
 	{
