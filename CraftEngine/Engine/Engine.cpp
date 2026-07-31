@@ -1,4 +1,6 @@
 ﻿#include "Engine.h"
+#include <Level/Level.h>
+
 #include <iostream>
 #include <Windows.h>
 //#include <chrono>
@@ -81,15 +83,42 @@ namespace Craft
 			{
 				// 게임 이벤트를 순서대로 호출
 				OnInitialized();
-
+				
 				// 게임 이벤트의 초기화 함수 (1번만 호출)
 				BeginPlay();
-
+				
 				// 게임 업데이트 ( 유니티에서 Update(); 와 같음
 				Tick(deltaTime);
-
+				
 				// 화면 그리기
 				Draw();
+
+				// 이 위까지 호출이 완료되면 프레임 처리는 완료됨
+				// 이 아래는 현재 프레임과 관련하여 저장해야하는 값임.
+
+				// 레벨 전환 처리
+				if (nextLevel)
+				{
+
+					// 기존 레벨을 정리
+					if (mainLevel)
+					{
+						mainLevel.reset();
+					}
+
+					// 추가 요청된 레벨을 메인 레벨로 설정
+					mainLevel = nextLevel;
+
+					// 포인터를 정리
+					nextLevel.reset();
+				}
+
+				// 추가/제거 요청된 액터를 정리
+				// Level에 있던거라 friend 선언으로 해결
+				if (mainLevel)
+				{
+					mainLevel->ProcessAddAndDestroyActors();
+				}
 
 				// 입력 상태 저장
 				SavePreviousInputStates();
@@ -123,23 +152,57 @@ namespace Craft
 	}
 	void Engine::OnInitialized()
 	{
+		{
+			if (!mainLevel || mainLevel->HasInitialized())
+			{
+				return;
+			}
+
+			// 초기화
+			mainLevel->OnInitialized();
+		}
 	}
 	void Engine::BeginPlay()
 	{
+		{
+			if (!mainLevel)
+			{
+				return;
+			}
+
+			// 레벨에 이벤트 전달
+			mainLevel->BeginPlay();
+		}
 	}
 	void Engine::Tick(float deltaTime)
 	{
-		// Todo: deltaTime 출력
-		std::cout
-			<< "Engine::Tick() - deltaTime: "
-			<< deltaTime
-			<< " | FPS: " 
-			<< (1.0f / deltaTime)
-			<< "\n";
+		{
+			if (!mainLevel)
+			{
+				return;
+			}
+
+			mainLevel->Tick(deltaTime);
+		}
+		
+		//std::cout
+		//	<< "Engine::Tick() - deltaTime: "
+		//	<< deltaTime
+		//	<< " | FPS: " 
+		//	<< (1.0f / deltaTime)
+		//	<< "\n";
 	}
 
 	void Engine::Draw()
 	{
+		{
+			if (!mainLevel)
+			{
+				return;
+			}
+
+			mainLevel->Draw();
+		}
 	}
 	void Engine::SavePreviousInputStates()
 	{

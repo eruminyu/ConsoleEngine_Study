@@ -13,6 +13,8 @@ namespace Craft
 	// : weak_from_this() - this 포인터를 weak_ptr로 변환.
 	class Level : public std::enable_shared_from_this<Level>
 	{
+		//friend 선언
+		friend class Engine;
 
 	public:
 		Level();
@@ -75,7 +77,7 @@ namespace Craft
 		// Getter
 		inline bool	HasInitialized() const { return hasInitialized; }
 
-	protected:
+	protected: // <- public 선언으로 바꾸는것도 해결 방법.(엔진에서 못불러올 떄)
 		// 이전 프레임에 추가/제거 요청된 액터 처리용 함수.
 		void ProcessAddAndDestroyActors();
 
