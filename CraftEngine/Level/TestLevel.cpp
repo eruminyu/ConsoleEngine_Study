@@ -9,5 +9,4 @@ void TestLevel::OnInitialized()
 	// 테스트 액터를 레벨에 추가.
 	SpawnActor<TestActor>();
 	//SpawnActor<Level>();
-	//SIFANE 효과가 여기서 나옴
 }
