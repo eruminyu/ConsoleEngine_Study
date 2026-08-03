@@ -7,7 +7,14 @@
 
 int main()
 {
+<<<<<<< Updated upstream
 	// 엔진 객체 생성 및 실행
 	Craft::Engine engine;
+=======
+	
+	// 엔진 객체 생성 및 실행
+	Craft::Engine engine;
+	engine.AddNewLevel<TestLevel>();
+>>>>>>> Stashed changes
 	engine.Run();
 }
