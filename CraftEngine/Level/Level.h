@@ -30,6 +30,7 @@ namespace Craft
 
 		// 액터 추가 함수(템플릿)
 		// template<typename T, typename ...Args> 이렇게 마무리 해도 괜찮음, 대신 문제가 생길 수 있으니 아래처럼
+		// typename ...Args 는 가변인자 템플릿, 즉 여러개의 인자를 받을 수 있음.
 		template<typename T, typename ...Args,
 			typename = std::enable_if_t<std::is_base_of<Actor, T>::value>>
 			std::shared_ptr<T> SpawnActor(Args&& ...args) // 아직 안배운 부분
