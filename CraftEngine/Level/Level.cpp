@@ -1,4 +1,4 @@
-#include "Level.h"
+﻿#include "Level.h"
 
 namespace Craft
 {
@@ -14,20 +14,12 @@ namespace Craft
 
 	void Level::OnInitialized()
 	{
-<<<<<<< Updated upstream
-		// 초기화 완료 설정
-		hasInintialized = true;
-=======
 		// 초기화 됐다고 설정.
 		hasInitialized = true;
->>>>>>> Stashed changes
 	}
 
 	void Level::BeginPlay()
 	{
-<<<<<<< Updated upstream
-
-=======
 		// 액터 초기화 시 1번 호출되는 이벤트.
 		for (const std::shared_ptr<Actor>& actor : actorList)
 		{
@@ -40,14 +32,10 @@ namespace Craft
 			// BeginPlay 이벤트 호출.
 			actor->BeginPlay();
 		}
->>>>>>> Stashed changes
 	}
 
 	void Level::Tick(float deltaTime)
 	{
-<<<<<<< Updated upstream
-
-=======
 		for (const std::shared_ptr<Actor>& actor : actorList)
 		{
 			// 검증 - 활성화되지 않았으면 건너뛰기.
@@ -60,14 +48,10 @@ namespace Craft
 			// Tick 이벤트 호출.
 			actor->Tick(deltaTime);
 		}
->>>>>>> Stashed changes
 	}
 
 	void Level::Draw()
 	{
-<<<<<<< Updated upstream
-
-=======
 		for (const std::shared_ptr<Actor>& actor : actorList)
 		{
 			// 검증 - 활성화되지 않았으면 건너뛰기.
@@ -113,6 +97,5 @@ namespace Craft
 
 		// 추가 처리된 목록 정리.
 		addRequestedActorList.clear();
->>>>>>> Stashed changes
 	}
 }

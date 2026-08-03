@@ -1,10 +1,7 @@
 ﻿#include "Engine.h"
-<<<<<<< Updated upstream
-=======
 #include <Level/Level.h>
 #include <Input/Input.h>
 
->>>>>>> Stashed changes
 #include <iostream>
 #include <Windows.h>
 #include <cassert>
@@ -82,18 +79,6 @@ namespace Craft
 				// 게임 이벤트 함수 호출.
 				OnInitialized();
 
-<<<<<<< Updated upstream
-				// 게임 이벤트의 초기화 함수 (1번만 호출)
-				BeginPlay();
-
-				// 게임 업데이트 ( 유니티에서 Update(); 와 같음
-				Tick(deltaTime);
-
-				// 화면 그리기
-				Draw();
-
-				// 입력 상태 저장
-=======
 				// 게임 이벤트의 초기화 함수(1번만 호출).
 				BeginPlay();
 
@@ -128,7 +113,6 @@ namespace Craft
 				}
 
 				// 입력 상태 저장.
->>>>>>> Stashed changes
 				SavePreviousInputStates();
 
 				// 현재 시간을 이전 시간으로 저장.
@@ -168,8 +152,6 @@ namespace Craft
 
 	void Engine::OnInitialized()
 	{
-<<<<<<< Updated upstream
-=======
 		// 레벨 초기화 처리.
 		// 예외 처리.
 		if (!mainLevel || mainLevel->HasInitialized())
@@ -179,13 +161,10 @@ namespace Craft
 
 		// 초기화 이벤트 호출.
 		mainLevel->OnInitialized();
->>>>>>> Stashed changes
 	}
 
 	void Engine::BeginPlay()
 	{
-<<<<<<< Updated upstream
-=======
 		if (!mainLevel)
 		{
 			return;
@@ -193,40 +172,26 @@ namespace Craft
 
 		// 레벨에 이벤트 전달.
 		mainLevel->BeginPlay();
->>>>>>> Stashed changes
 	}
 
 	void Engine::Tick(float deltaTime)
 	{
-<<<<<<< Updated upstream
-		// Todo: deltaTime 출력
-		std::cout
-			<< "Engine::Tick() - deltaTime: "
-			<< deltaTime
-			<< " | FPS: " 
-			<< (1.0f / deltaTime)
-			<< "\n";
-=======
 		if (!mainLevel)
 		{
 			return;
 		}
 
 		mainLevel->Tick(deltaTime);
->>>>>>> Stashed changes
 	}
 
 	void Engine::Draw()
 	{
-<<<<<<< Updated upstream
-=======
 		if (!mainLevel)
 		{
 			return;
 		}
 
 		mainLevel->Draw();
->>>>>>> Stashed changes
 	}
 
 	void Engine::SavePreviousInputStates()

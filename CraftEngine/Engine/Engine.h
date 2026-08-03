@@ -1,10 +1,5 @@
 ﻿#pragma once
 
-<<<<<<< Updated upstream
-// CraftEngine 프로젝트 안의  클래스는 Craft 네임 스페이스 사용.
-namespace Craft
-{
-=======
 #include <memory>	// 스마트 포인터 사용을 위해.
 
 // CraftEngine 프로젝트 안의  클래스는 Craft 네임 스페이스 사용.
@@ -14,7 +9,6 @@ namespace Craft
 	class Level;
 	class Input;
 
->>>>>>> Stashed changes
 	// 메인 엔진 클래스.
 	// 엔진 루프를 제공.
 	// 게임 엔진의 핵심 기능 제공.
@@ -37,9 +31,6 @@ namespace Craft
 		// 엔진 종료 함수.
 		void Quit();
 
-<<<<<<< Updated upstream
-		// 전역 접근 함수
-=======
 		// 레벨 추가 요청 함수.
 		// 1. std::is_base_of 하는일이 무엇인지
 		// 2. std::enable_if_t 하는일이 무엇인지
@@ -53,7 +44,6 @@ namespace Craft
 		}
 
 		// 전역 접근 함수.
->>>>>>> Stashed changes
 		static Engine& Get();
 
 	protected:
@@ -90,8 +80,6 @@ namespace Craft
 		// 전역 접근이 가능하도록 변수 선언.
 		static Engine* instance;
 
-<<<<<<< Updated upstream
-=======
 		// 메인 레벨.
 		std::shared_ptr<Level> mainLevel;
 
@@ -100,6 +88,5 @@ namespace Craft
 
 		// 입력 시스템 변수.
 		std::unique_ptr<Input> input;
->>>>>>> Stashed changes
 	};
 }

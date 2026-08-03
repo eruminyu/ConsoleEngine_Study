@@ -1,22 +1,20 @@
 ﻿#pragma once
 
-<<<<<<< Updated upstream
-=======
 #include <Actor/Actor.h>
 #include <memory>		// std::unique_ptr / std::shared_ptr 사용.
 #include <vector>		// std::vector 동적 배열.
 
->>>>>>> Stashed changes
 namespace Craft
 {
-	// 게임에 배치된 모든 액터를 관리하는 클래스
-	class Level
+	// 게임에 배치된 모든 액터를 관리하는 클래스.
+	// public std::enable_shared_from_this<Level>
+	// : shared_from_this() / weak_from_this() 사용하기 위해.
+	// : shared_from_this() - this 포인터를 shared_ptr로 변환.
+	// : weak_from_this() - this 포인터를 weak_ptr로 변환.
+	class Level : public std::enable_shared_from_this<Level>
 	{
-<<<<<<< Updated upstream
-=======
 		// friend 선언.
 		friend class Engine;
->>>>>>> Stashed changes
 
 	public:
 		Level();
@@ -30,20 +28,6 @@ namespace Craft
 		virtual void Tick(float deltaTime);
 		virtual void Draw();
 
-<<<<<<< Updated upstream
-		// Getter
-		inline bool	HasInitialized() const { return hasInintialized; }
-
-	protected:
-		// 초기화 처리 여부 플래그
-		bool hasInintialized = false;
-
-
-	};
-
-}
-
-=======
 		// 액터 추가 함수(템플릿).
 		template<typename T, typename ...Args,
 			typename = std::enable_if_t<std::is_base_of<Actor, T>::value>>
@@ -107,4 +91,3 @@ namespace Craft
 		std::vector<std::shared_ptr<Actor>> addRequestedActorList;
 	};
 }
->>>>>>> Stashed changes
