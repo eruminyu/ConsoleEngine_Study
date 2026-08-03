@@ -1,10 +1,20 @@
 ﻿#pragma once
 
+#include <Actor/Actor.h>
+#include <memory>		//std::unique_ptr / std::shared_ptr
+#include <vector>		
+
 namespace Craft
 {
-	// 게임에 배치된 모든 액터를 관리하는 클래스
-	class Level
+	// 게임에 배치된 모든 액터를 관리하는 클래스.
+	// public std::enable_shared_from_this<Level>
+	// : shared_from_this() / weak_from_this() 사용하기 위해.
+	// : shared_from_this() - this 포인터를 shared_ptr로 변환.
+	// : weak_from_this() - this 포인터를 weak_ptr로 변환.
+	class Level : public std::enable_shared_from_this<Level>
 	{
+		//friend 선언
+		friend class Engine;
 
 	public:
 		Level();
@@ -18,15 +28,76 @@ namespace Craft
 		virtual void Tick(float deltaTime);
 		virtual void Draw();
 
+		// 액터 추가 함수(템플릿)
+		// template<typename T, typename ...Args> 이렇게 마무리 해도 괜찮음, 대신 문제가 생길 수 있으니 아래처럼
+		// typename ...Args 는 가변인자 템플릿, 즉 여러개의 인자를 받을 수 있음.
+		template<typename T, typename ...Args,
+			typename = std::enable_if_t<std::is_base_of<Actor, T>::value>>
+			std::shared_ptr<T> SpawnActor(Args&& ...args) // 아직 안배운 부분
+			// SFINAE 라는 기법
+		{
+			std::shared_ptr<T> newActor
+				= std::make_shared<T>(std::forward<Args>(args)...);
+
+			// 추가 요청 목록에 포함함
+			addRequestedActorList.emplace_back(newActor);
+
+			// 오너십 설정
+			newActor->SetOwner(weak_from_this());
+
+			// 생성한 액터 반환
+			return newActor;
+
+		}
+
+
+
+		// 액터 검색 함수(템플릿)
+		template<typename T,
+			typename = std::enable_if_t<std::is_base_of<Actor, T>::value>>
+			// T 타입의 액터가 있는지, 타입을 기준으로 검색하는 함수
+			std::shared_ptr<T> FindActor()
+		{
+			// 검색 - 형변환
+			for (const auto& actor : actorList)
+			{
+				// T 타입으로 형변환을 시도
+				std::shared_ptr<T> targetActor
+					= std::dynamic_pointer_cast<T>(actor);
+				if (targetActor)
+				{
+					return targetActor;
+				}
+			}
+
+			// 못찾은 경우에 null 반환
+			return nullptr;
+		}
+		
+
 		// Getter
-		inline bool	HasInitialized() const { return hasInintialized; }
+		inline bool	HasInitialized() const { return hasInitialized; }
+
+	protected: // <- public 선언으로 바꾸는것도 해결 방법.(엔진에서 못불러올 떄)
+		// 이전 프레임에 추가/제거 요청된 액터 처리용 함수.
+		void ProcessAddAndDestroyActors();
 
 	protected:
 		// 초기화 처리 여부 플래그
-		bool hasInintialized = false;
+		bool hasInitialized = false;
 
+	protected:
+		// 레벨에 배치된 모든 액터
+		std::vector<std::shared_ptr<Actor>> actorList;
+		// 액터 리스트를 처리하는 과정에서 추가 생성이나 삭제를 하게 되면 문제가 생길 가능성이 많음.
+
+		// 레벨에 추가 요청된 액터를 저장해두는 목록
+		// 현재 프레임을 처리하는 과정에서 액터 추가 요청이 발생하면,
+		// 해당 액터를 바로 추가하는 경우 기존 액터 처리에 문제가 발생할 수 있기에
+		// 현재 프레임을 모두 처리한 후에 추가 요청된 액터를 actorList로 옮김.
+		std::vector<std::shared_ptr<Actor>> addRequestedActorList;
 
 	};
-
+	
 }
 
