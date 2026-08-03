@@ -37,6 +37,8 @@
 # 빌드 결과물 및 중간 생성 파일
 Bin/
 Intermediate/
+[Ii]ncludes/
+[Ll]ib/
 
 # 기타 사용자 설정 파일
 *.user

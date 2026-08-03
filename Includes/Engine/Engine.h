@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <Core/Core.h>
+
 #include <memory>	// 스마트 포인터 사용을 위해.
 
 // CraftEngine 프로젝트 안의  클래스는 Craft 네임 스페이스 사용.
@@ -12,7 +14,7 @@ namespace Craft
 	// 메인 엔진 클래스.
 	// 엔진 루프를 제공.
 	// 게임 엔진의 핵심 기능 제공.
-	class __declspec(dllexport) Engine
+	class CRAFT_API Engine
 	{
 		// 엔진 설정 (데이터).
 		struct Setting
