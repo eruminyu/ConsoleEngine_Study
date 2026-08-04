@@ -8,12 +8,6 @@ namespace Craft
 	Vector2 Vector2::Right(1, 0);
 	Vector2 Vector2::Up(0, -1);
 	
-
-	int main()
-	{
-
-	}
-
 	Vector2::Vector2(int x, int y)
 		:x(x), y(y)
 	{
@@ -56,7 +50,7 @@ namespace Craft
 	Vector2 Vector2::operator/(const Vector2& other) const
 	{
 		// assert
-		assert(other.x != 0, other.y != 0);
+		assert(other.x != 0 && other.y != 0);
 		return Vector2(x / other.x, y / other.y);
 	}
 	

@@ -10,6 +10,7 @@ namespace Craft
 	// 전방 선언.
 	class Level;
 	class Input;
+	class Renderer;
 
 	// 메인 엔진 클래스.
 	// 엔진 루프를 제공.
@@ -90,5 +91,9 @@ namespace Craft
 
 		// 입력 시스템 변수.
 		std::unique_ptr<Input> input;
+
+		// 렌더러
+		std::unique_ptr<Renderer> renderer;
+
 	};
 }
