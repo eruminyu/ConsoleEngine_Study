@@ -26,7 +26,7 @@ namespace Craft
 
 		// 렌더러 객체 생성
 		renderer = std::make_unique<Renderer>(
-			Vector2(setting.width, setting.heigth)
+			Vector2(setting.width, setting.height)
 		);
 
 	}
@@ -281,7 +281,7 @@ namespace Craft
 			}
 			else if (strcmp(key, "height") == 0)
 			{
-				sscanf_s(token, "height = %d", &setting.heigth);
+				sscanf_s(token, "height = %d", &setting.height);
 			}
 
 			// 나머지 문자열 자르기 (개행 문자 기준으로)

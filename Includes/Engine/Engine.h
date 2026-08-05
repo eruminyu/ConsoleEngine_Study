@@ -26,7 +26,7 @@ namespace Craft
 			int width = 0;
 
 			// 사용할 콘솔 화면 높이
-			int heigth = 0;
+			int height = 0;
 		};
 
 	public:
@@ -56,7 +56,7 @@ namespace Craft
 
 		// Getter
 		inline int GetWidth() const { return setting.width; }
-		inline int GetHeigth() const { return setting.heigth; }
+		inline int GetHeigth() const { return setting.height; }
 
 	protected:
 		// 입력 처리 함수 (입력 폴링).
