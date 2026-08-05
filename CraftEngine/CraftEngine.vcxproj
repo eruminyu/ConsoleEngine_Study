@@ -68,7 +68,8 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
     <PreBuildEvent>
-      <Command>xcopy *.h ..\Includes\ /e /y /i</Command>
+      <Command>xcopy *.h ..\Includes\ /e /y /i
+xcopy ..\Config\* $(OutDir)..\Config\ /e /y /i</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>xcopy $(OutDir)\*.lib ..\lib\ /e /y /i</Command>
@@ -93,7 +94,8 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
     <PreBuildEvent>
-      <Command>xcopy *.h ..\Includes\ /e /y /i</Command>
+      <Command>xcopy *.h ..\Includes\ /e /y /i
+xcopy ..\Config\* $(OutDir)..\Config\ /e /y /i</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>xcopy $(OutDir)\*.lib ..\lib\ /e /y /i</Command>
