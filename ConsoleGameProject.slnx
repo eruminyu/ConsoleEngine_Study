@@ -8,4 +8,7 @@
   <Project Path="Game/Game.vcxproj" Id="174e1bca-4655-445a-8026-0169c013d301">
     <BuildDependency Project="CraftEngine/CraftEngine.vcxproj" />
   </Project>
+  <Project Path="Mr.Driller/Mr.Driller.vcxproj" Id="4567a1c9-265c-46b3-a478-799ae3d73f7a">
+    <BuildDependency Project="CraftEngine/CraftEngine.vcxproj" />
+  </Project>
 </Solution>
