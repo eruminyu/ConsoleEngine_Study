@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include <Math/Vector2.h>
 #include <Windows.h>
 

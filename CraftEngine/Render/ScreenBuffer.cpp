@@ -29,23 +29,20 @@ namespace Craft
 
 		// 결과 확인.
 		assert(result == TRUE);
-		
+
 		// 화면 버퍼 크기 설정.
 		result = SetConsoleScreenBufferSize(buffer, size);
 		assert(result == TRUE);
-
 
 		// 직접 만든 콘솔의 커서 끄기.
 		CONSOLE_CURSOR_INFO info;
 		result = GetConsoleCursorInfo(buffer, &info);
 		assert(result == TRUE);
 
-		// 커서 안보이게 설정
+		// 커서 안보이게 설정.
 		info.bVisible = FALSE;
 		result = SetConsoleCursorInfo(buffer, &info);
 		assert(result == TRUE);
-
-
 	}
 
 	ScreenBuffer::~ScreenBuffer()
@@ -59,37 +56,37 @@ namespace Craft
 
 	void ScreenBuffer::Clear() const
 	{
-		// 콘솔 전체를 지우는 함수
-		// 공백 문자를 화면 전체에 한번에 설정
+		// 콘솔 전체를 지우는 함수.
+		// 공백 문자를 화면 전체에 한 번에 설정.
 
+		// 화면에 설정된 글자 수.
 		DWORD writtenCount = 0;
 
 		BOOL result = FillConsoleOutputCharacterA(
-		buffer,
+			buffer,
 			' ',
 			size.x * size.y,
-			Vector2::Zero, // 만들어둔 벡터 Zero는 형변환을 잘 해둬서 쓸 수 있음.
+			Vector2::Zero,
 			&writtenCount
 		);
 
-		// 어서트
+		// 어서트.
 		assert(result == TRUE);
-
 	}
 
 	void ScreenBuffer::Draw(const CHAR_INFO* const charInfo) const
 	{
-		// charInfo 2차원 배열 (1차원 배열에 2차원 배열 정보를 기록)
+		// charInfo는 2차원 배열 (1차원 배열에 2차원 배열 정보를 기록).
 
-		// 설정할 글자 영역
+		// 설정할 글자 영역.
 		SMALL_RECT rect = {
 			0,							// Left
-			0,							// TOP
+			0,							// Top
 			static_cast<short>(size.x - 1),	// Right
 			static_cast<short>(size.y - 1)	// Bottom
 		};
 
-		// 콘솔에 CHAR_INFO 타입으로 글자 쓰는 함수
+		// 콘솔에 CHAR_INFO 타입으로 글자 쓰는 함수.
 		BOOL result = WriteConsoleOutputA(
 			buffer,
 			charInfo,
@@ -97,7 +94,7 @@ namespace Craft
 			Vector2::Zero,
 			&rect
 		);
-		assert(result == TRUE);
 
+		assert(result == TRUE);
 	}
 }

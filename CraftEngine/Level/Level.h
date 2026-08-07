@@ -2,6 +2,7 @@
 
 #include <Core/Core.h>
 #include <Actor/Actor.h>
+#include <Core/CraftObject.h>
 #include <memory>		// std::unique_ptr / std::shared_ptr 사용.
 #include <vector>		// std::vector 동적 배열.
 
@@ -12,8 +13,13 @@ namespace Craft
 	// : shared_from_this() / weak_from_this() 사용하기 위해.
 	// : shared_from_this() - this 포인터를 shared_ptr로 변환.
 	// : weak_from_this() - this 포인터를 weak_ptr로 변환.
-	class CRAFT_API Level : public std::enable_shared_from_this<Level>
+	class CRAFT_API Level : 
+		public CraftObject, 
+		public std::enable_shared_from_this<Level>
 	{
+		// 커스텀 타입 설정.
+		TYPE_DECLARATIONS(Level, CraftObject)
+
 		// friend 선언.
 		friend class Engine;
 
@@ -32,7 +38,7 @@ namespace Craft
 		// 액터 추가 함수(템플릿).
 		template<typename T, typename ...Args,
 			typename = std::enable_if_t<std::is_base_of<Actor, T>::value>>
-		std::shared_ptr<T> SpawnActor(Args&& ...args)
+			std::shared_ptr<T> SpawnActor(Args&& ...args)
 		{
 			// 새로운 액터 생성.
 			std::shared_ptr<T> newActor
@@ -49,9 +55,9 @@ namespace Craft
 		}
 
 		// 액터 검색 함수(템플릿).
-		template<typename T, 
+		template<typename T,
 			typename = std::enable_if_t<std::is_base_of<Actor, T>::value>>
-		std::shared_ptr<T> FindActor()
+			std::shared_ptr<T> FindActor()
 		{
 			// 검색 - 형변환.
 			for (const auto& actor : actorList)

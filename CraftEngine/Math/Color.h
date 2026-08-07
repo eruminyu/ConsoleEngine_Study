@@ -5,7 +5,7 @@
 
 namespace Craft
 {
-	// 색상을 열거형으로 정의
+	// 색상을 열거형으로 정의.
 	enum class CRAFT_API Color : WORD
 	{
 		Red = FOREGROUND_RED,
@@ -17,5 +17,4 @@ namespace Craft
 		White = Red | Green | Blue,
 		BrightWhite = White | FOREGROUND_INTENSITY
 	};
-	
 }

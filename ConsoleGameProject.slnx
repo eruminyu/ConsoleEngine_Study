@@ -5,7 +5,7 @@
   <Project Path="CraftEngine/CraftEngine.vcxproj" Id="4153e88a-37fa-4c8e-9e14-2f4ba85b231e">
     <BuildType Project="Debug" />
   </Project>
-  <Project Path="Game/Game.vcxproj" Id="a482d140-80fb-47ba-b98e-13a286cfa060">
+  <Project Path="Game/Game.vcxproj" Id="174e1bca-4655-445a-8026-0169c013d301">
     <BuildDependency Project="CraftEngine/CraftEngine.vcxproj" />
   </Project>
 </Solution>

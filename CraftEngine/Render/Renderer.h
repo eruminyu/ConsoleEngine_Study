@@ -5,34 +5,30 @@
 #include <Math/Color.h>
 #include <string>
 #include <vector>
-#include <Windows.h>
 #include <memory>
 
 namespace Craft
 {
-	// 전방 선언
+	// 전방 선언.
 	class ScreenBuffer;
-
 
 	// 그리기 기능을 전담하는 전문 객체.
 	class CRAFT_API Renderer
 	{
-		// 프레임(이미지 데이터 구조체
+		// 프레임(이미지) 데이터 구조체.
 		struct Frame
 		{
 			Frame(int bufferCount);
 			~Frame();
 
-			// 프레임 초기화
+			// 프레임 초기화 함수.
 			void Clear(const Vector2& screenSize);
-			
 
-			// 화면에 그릴 2차원 배열 문자값
+			// 화면에 그릴 2차원 배열 문자값.
 			std::unique_ptr<CHAR_INFO[]> charInfoArray;
 
-			// 그리기 정렬 값 이차원 배열
+			// 그리기 정렬 값 이차원 배열.
 			std::unique_ptr<int[]> sortingOrderArray;
-
 		};
 
 		// 화면에 그릴 데이터를 명령 단위로 저장하기 위한 구조체.
@@ -52,7 +48,7 @@ namespace Craft
 		};
 
 	public:
-		Renderer(const Vector2 screenSize);
+		Renderer(const Vector2& screenSize);
 		~Renderer();
 
 		// 화면에 그릴 데이터를 제출(전달)하는 함수.
@@ -69,7 +65,6 @@ namespace Craft
 		// 전역 접근 함수.
 		static Renderer& Get();
 
-
 	private:
 		// 그리기 작업을 시작할 때 프레임(화면)을 지우는 함수.
 		void Clear();
@@ -80,6 +75,7 @@ namespace Craft
 		// 그린 결과를 화면에 표시하는 함수.
 		void Present();
 
+		// Getter.
 		const ScreenBuffer* const GetCurrentBuffer() const;
 
 	private:
@@ -90,21 +86,16 @@ namespace Craft
 		// 큐(Queue)처럼 사용.
 		std::vector<RenderCommand> renderQueue;
 
-		// 화면 크기
+		// 화면 크기.
 		Vector2 screenSize;
 
-		// 글자/그리기 순서 2차원 배열을 관리하는 프레임 객체
+		// 글자/그리기 순서 2차원 배열을 관리하는 프레임 객체.
 		std::unique_ptr<Frame> frame;
 
-		// 이중 버퍼링 구현을 위한 화면 버퍼 2개
-		std::unique_ptr<ScreenBuffer> screenBufferAttay[2];
-		// 버퍼 인덱스로 관리해야함.
+		// 이중 버퍼링 구현을 위한 화면 버퍼 2개.
+		std::unique_ptr<ScreenBuffer> screenBufferArray[2];
+
+		// 버퍼 인덱스.
 		int currentBufferIndex = 0;
-
-
-
-
 	};
-
-
 }

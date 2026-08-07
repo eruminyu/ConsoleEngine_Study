@@ -1,13 +1,11 @@
 ﻿#pragma once
 
 #include <Core/Core.h>
-#include <Math/Color.h>
 #include <Math/Vector2.h>
+#include <Math/Color.h>
 #include <Core/CraftObject.h>
 #include <memory>		// std::weak_ptr 사용을 위해.
 #include <string>
-
-
 
 namespace Craft
 {
@@ -17,8 +15,9 @@ namespace Craft
 	// 가상 공간에 배치될 모든 액터의 기본 클래스.
 	class CRAFT_API Actor : public CraftObject
 	{
-		// 매크로 지정할 때 끝에 세미콜론 넣지 않도록 주의
+		// 매크로 지정할 때 끝에 세미콜론 넣지 않도록 주의.
 		TYPE_DECLARATIONS(Actor, CraftObject)
+
 	public:
 		Actor(
 			const std::string& image = "",
@@ -67,17 +66,16 @@ namespace Craft
 		// 화면에 그릴 글자.
 		std::string image;
 
-		// 글자 색상
+		// 글자 색상.
 		Color color = Color::White;
 
-		// 글자 길이
+		// 글자 길이.
 		int width = 0;
 
-		// 렌더링 순서
+		// 렌더링 순서.
 		int sortingOrder = 0;
-		
-		// 위치
-		Vector2 position;
 
+		// 위치.
+		Vector2 position;
 	};
 }

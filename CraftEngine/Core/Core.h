@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 // 4251 경고 끄기.
 #pragma warning(disable: 4251)
 
